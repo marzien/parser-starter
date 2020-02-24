@@ -20,8 +20,43 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    console.log(req.body);
-    res.send('POST route')
+    if(validURL(req.body.url)) {
+
+    } else {
+        console.log('Not valid URL link')
+    };
+
+
+
+
+
+
+
+    const result = {
+        version: "",
+        title: "",
+        headingNumber: 0,
+        headingLevel: "",
+        pictureNumber: 0,
+        largestPicture: "",
+        linksIntCount: 0,
+        linksExtCount: 0,
+        inaccesibleLink: 0,
+        loadingTime: 0,
+        httpStatus: "200"
+    };
+
+    res.json(result)
 })
+
+validURL = (str) => {
+    var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    return !!pattern.test(str);
+  }
 
 module.exports = router;
